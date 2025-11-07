@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aman Thakur – Web Developer</title>
+  <meta name="description" content="Portfolio of Aman Thakur – Web Developer. Projects: Pizza Inventory, Movie Shelf, ATM Machine." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====== VARIABLES (Dark/Light Themes) ====== */
+    :root {
+      --bg: #0b0f17;
+      --panel: #111827;
+      --soft: #111827;
+      --card: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --brand: #22d3ee;
+      --brand-2: #8b5cf6;
+      --accent: #10b981;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --border: rgba(255, 255, 255, 0.08);
+      --ring: 0 0 0 4px rgba(34,211,238,0.18);
+    }
+
+    html[data-theme="light"] {
+      --bg: #f7f7fb;
+      --panel: #ffffff;
+      --soft: #ffffff;
+      --card: #ffffff;
+      --text: #0d1321;
+      --muted: #546174;
+      --brand: #0ea5e9;
+      --brand-2: #8b5cf6;
+      --accent: #059669;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+      --border: rgba(0, 0, 0, 0.08);
+      --ring: 0 0 0 4px rgba(14,165,233,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+    *,*::before,*::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 600px at 15% -10%, var(--brand, #22d3ee) 10%, transparent 60%),
+        linear-gradient(180deg,var(--bg),var(--bg));
+      color: var(--text);
+      font-family: Inter, system-ui, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin-inline: auto;
+    }
+
+    /* Sticky header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .logo span {
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 18px;
+      font-weight: 500;
+    }
+
+    nav a.active,
+    nav a:hover {
+      color: var(--text);
+    }
+
+    nav a:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--text);
+      background: color-mix(in srgb, var(--card) 85%, transparent);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: color-mix(in srgb, var(--text) 18%, transparent);
+    }
+
+    .theme-toggle .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    /* Animated section bar on hover */
+    section .section-title .bar {
+      width: 34px;
+      height: 3px;
+      border-radius: 6px;
+      background: linear-gradient(90deg,var(--brand),var(--brand-2));
+      transition: width 0.4s ease;
+    }
+
+    section:hover .section-title .bar {
+      width: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">Aman <span>Thakur</span></div>
+      <nav aria-label="Primary">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark and light theme">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="themeLabel">Dark</span> /
+        <span id="themeLabelAlt">Light</span>
+      </button>
+    </div>
+  </header>
+
+    <main>
+    <!-- HERO Section -->
+    <section id="home" class="container hero">
+      <div>
+        <h1 class="fade-in">Hi, I'm Aman Thakur — 
+          <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;color:transparent">
+            Web Developer
+          </span>
+        </h1>
+        <p class="fade-in" style="transition-delay:.08s; margin-top: 10px;">
+          Passionate web developer with an adaptive nature and quick learning mindset. I build responsive, accessible web apps and APIs with modern stacks.
+        </p>
+        <div class="cta fade-in" style="margin-top: 16px; transition-delay:.12s">
+          <a class="btn primary" href="#projects">See Projects</a>
+          <a class="btn" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="portrait floaty fade-in" aria-label="Portrait placeholder"></div>
+    </section>
+
+    <!-- ABOUT Section -->
+    <section id="about" class="container">
+      <h2 class="section-title"><span class="bar"></span>About</h2>
+      <div class="card gradient-border fade-in">
+        <p>I’m Aman Thakur, a web developer focused on creating reliable and user-friendly web experiences. Skilled in teamwork, leadership, and adaptability. I specialize in crafting full-stack solutions using modern technologies and clean code practices.</p>
+      </div>
+    </section>
+
+    <!-- EDUCATION Section -->
+    <section id="education" class="container">
+      <h2 class="section-title"><span class="bar"></span>Education</h2>
+      <div class="edu-list">
+        
+        <!-- LPU -->
+        <article class="edu-box fade-in" data-tilt-edu>
+          <div class="thumb">
+            <img src="assets/lpu.jpg" alt="LPU logo or image" />
+          </div>
+          <div style="padding:16px">
+            <h3>MCA — Lovely Professional University (LPU)</h3>
+            <p style="color:var(--muted)">Currently pursuing</p>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Punjab, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add LPU URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Markham College -->
+        <article class="edu-box fade-in" data-tilt-edu>
+          <div class="thumb">
+            <img src="assets/markham.jpg" alt="Markham College of Commerce" />
+          </div>
+          <div style="padding:16px">
+            <h3>BCA — Markham College of Commerce, VBU</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Jharkhand, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add college URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Annada College -->
+        <article class="edu-box fade-in" data-tilt-edu>
+          <div class="thumb">
+            <img src="assets/annada.jpg" alt="Annada College" />
+          </div>
+          <div style="padding:16px">
+            <h3>12th — Annada College, Hazaribagh</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Jharkhand, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add college URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- VCS -->
+        <article class="edu-box fade-in" data-tilt-edu>
+          <div class="thumb">
+            <img src="assets/vcs.jpg" alt="Vivekananda Central School" />
+          </div>
+          <div style="padding:16px">
+            <h3>10th — Vivekananda Central School (Shree Ramakrishna Math & Mission)</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Jharkhand, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add school URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SKILLS Section -->
+    <section id="skills" class="container">
+      <h2 class="section-title"><span class="bar"></span>Skills</h2>
+      <div class="rows">
+        <div class="row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+          
+          <!-- Frontend -->
+          <div class="card gradient-border fade-in">
+            <h3>Frontend</h3>
+            <div class="skills-grid">
+              <div class="pill"><i></i> HTML</div>
+              <div class="pill"><i></i> CSS</div>
+              <div class="pill"><i></i> JavaScript</div>
+              <div class="pill"><i></i> React</div>
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="card gradient-border fade-in" style="transition-delay:.04s">
+            <h3>Backend</h3>
+            <div class="skills-grid">
+              <div class="pill"><i></i> Node.js</div>
+              <div class="pill"><i></i> MongoDB</div>
+              <div class="pill"><i></i> Oracle DB</div>
+              <div class="pill"><i></i> C#</div>
+              <div class="pill"><i></i> REST APIs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 20px;">
+
+          <!-- Tools -->
+          <div class="card gradient-border fade-in">
+            <h3>Tools</h3>
+            <div class="skills-grid">
+              <div class="pill"><i></i> Git</div>
+              <div class="pill"><i></i> GitHub</div>
+              <div class="pill"><i></i> VS Code</div>
+              <div class="pill"><i></i> Postman</div>
+              <div class="pill"><i></i> Figma</div>
+            </div>
+          </div>
+
+          <!-- Soft Skills -->
+          <div class="card gradient-border fade-in" style="transition-delay:.04s">
+            <h3>Soft Skills</h3>
+            <div class="skills-grid">
+              <div class="pill"><i></i> Problem Solving</div>
+              <div class="pill"><i></i> Teamwork</div>
+              <div class="pill"><i></i> Leadership</div>
+              <div class="pill"><i></i> Adaptability</div>
+              <div class="pill"><i></i> Time Management</div>
+              <div class="pill"><i></i> Communication</div>
+              <div class="pill"><i></i> Creativity</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <!-- PROJECTS Section -->
+    <section id="projects" class="container">
+      <h2 class="section-title"><span class="bar"></span>Projects</h2>
+      <div class="projects">
+        
+        <!-- Pizza Inventory -->
+        <article class="project fade-in" data-tilt>
+          <div class="thumb">
+            <img src="assets/pizza.jpg" alt="Pizza Inventory App Screenshot" />
+          </div>
+          <h3>Pizza Inventory</h3>
+          <div class="badges">
+            <span class="badge"><i></i> React</span>
+            <span class="badge"><i></i> Node.js</span>
+            <span class="badge"><i></i> MongoDB</span>
+            <span class="badge"><i></i> REST API</span>
+          </div>
+          <p>Inventory management app for a pizza shop with CRUD features, stock alerts, and dashboard analytics.</p>
+          <div class="links">
+            <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Source Code</a>
+          </div>
+        </article>
+
+        <!-- Movie Shelf -->
+        <article class="project fade-in" style="transition-delay: .1s" data-tilt>
+          <div class="thumb">
+            <img src="assets/movieshelf.jpg" alt="Movie Shelf UI" />
+          </div>
+          <h3>Movie Shelf</h3>
+          <div class="badges">
+            <span class="badge"><i></i> React</span>
+            <span class="badge"><i></i> OMDb API</span>
+            <span class="badge"><i></i> Responsive UI</span>
+          </div>
+          <p>Browse, search, and save favorite movies using OMDb API. Fully responsive and fast-loading interface.</p>
+          <div class="links">
+            <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Source Code</a>
+          </div>
+        </article>
+
+        <!-- ATM Machine -->
+        <article class="project fade-in" style="transition-delay: .15s" data-tilt>
+          <div class="thumb">
+            <img src="assets/atm.jpg" alt="ATM Simulation UI" />
+          </div>
+          <h3>ATM Machine</h3>
+          <div class="badges">
+            <span class="badge"><i></i> C#</span>
+            <span class="badge"><i></i> Auth</span>
+            <span class="badge"><i></i> Log System</span>
+          </div>
+          <p>A desktop-based ATM simulator using C# for balance check, transactions, withdrawal history, login auth.</p>
+          <div class="links">
+            <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Source Code</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CONTACT Section -->
+    <section id="contact" class="container">
+      <h2 class="section-title"><span class="bar"></span>Contact</h2>
+      <div class="rows row-2" style="display: grid; gap: 20px; grid-template-columns: 1fr 1fr;">
+
+        <!-- Contact Info -->
+        <div class="card gradient-border fade-in">
+          <h3>Get In Touch</h3>
+          <ul style="list-style: none; padding: 0; display: grid; gap: 10px;">
+            <li><strong>Email:</strong> <a href="mailto:abc@gmail.com">abc@gmail.com</a></li>
+            <li><strong>LinkedIn:</strong> <a href="#" id="ln-url" target="_blank">Add LinkedIn URL</a></li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/abc145" target="_blank">abc145</a></li>
+            <li><strong>Instagram:</strong> <a href="#" id="ig-url" target="_blank">Add Instagram URL</a></li>
+          </ul>
+        </div>
+
+        <!-- Message Form -->
+        <div class="message-box fade-in">
+          <div class="corner" style="position:absolute;top:16px;right:16px;">
+            <label for="contact-via" class="sr-only">Contact via</label>
+            <select id="contact-via" aria-label="Choose contact platform">
+              <option value="email" selected>Email</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="github">GitHub</option>
+              <option value="instagram">Instagram</option>
+            </select>
+          </div>
+          <div style="display: grid; gap: 12px;">
+            <input class="input" id="msg-name" placeholder="Your name" aria-label="Your name" autocomplete="name" />
+            <input class="input" id="msg-email" type="email" placeholder="Your email" aria-label="Your email" autocomplete="email" />
+            <textarea class="input" id="msg-text" rows="5" placeholder="Type your message..."></textarea>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+              <button class="btn" type="button" id="clear-btn">Clear</button>
+              <button class="btn primary" type="button" id="send-btn">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <small style="display: block; margin-top: 1rem; color: var(--muted);">Note: Send opens the selected platform with your message.</small>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
+        <small>© <span id="year"></span> Aman Thakur. All rights reserved.</small>
+        <small>Built with ❤️ using <span style="font-family: 'JetBrains Mono', monospace;">HTML • CSS • JS</span></small>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+  // ===== Set current year in footer =====
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ===== Theme Toggle (Dark/Light Mode) =====
+  (function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const theme = savedTheme || (prefersLight ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeLabel(theme);
+  })();
+
+  const toggleBtn = document.getElementById('themeToggle');
+  toggleBtn?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('theme', nextTheme);
+    updateThemeLabel(nextTheme);
+    toggleBtn.classList.add('wiggle');
+    setTimeout(() => toggleBtn.classList.remove('wiggle'), 250);
+  });
+
+  function updateThemeLabel(theme) {
+    const label = document.getElementById('themeLabel');
+    const labelAlt = document.getElementById('themeLabelAlt');
+    if (theme === 'dark') {
+      label.style.opacity = 1;
+      labelAlt.style.opacity = 0.6;
+    } else {
+      label.style.opacity = 0.6;
+      labelAlt.style.opacity = 1;
+    }
+  }
+
+  // ===== Fade-In Animations On Scroll =====
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in, .project, .edu-box').forEach(el => io.observe(el));
+
+  // ===== Navbar Active Link Highlight =====
+  const navLinks = Array.from(document.querySelectorAll('header nav a'));
+  const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const active = navLinks.find(link => link.getAttribute('href') === `#${entry.target.id}`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, {
+    rootMargin: '-50% 0px -40% 0px',
+    threshold: 0.01
+  });
+
+  sections.forEach(section => navObserver.observe(section));
+
+  // ===== Add 3D Tilt Effect to Project Thumbnails =====
+  document.querySelectorAll('[data-tilt]').forEach(el => {
+    const strength = 8;
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      el.style.transform = `rotateX(${(-y * strength).toFixed(2)}deg) rotateY(${(x * strength).toFixed(2)}deg)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
+  });
+
+  // ===== Tilt on Education Cards =====
+  document.querySelectorAll('[data-tilt-edu]').forEach(el => {
+    const strength = 6;
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      el.style.transform = `translateY(-2px) rotateX(${(-y * strength).toFixed(2)}deg) rotateY(${(x * strength).toFixed(2)}deg)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
+  });
+
+  // ===== Contact → Message Sending Logic =====
+  const sendBtn = document.getElementById('send-btn');
+  const clearBtn = document.getElementById('clear-btn');
+  const selectEl = document.getElementById('contact-via');
+
+  function buildMessageBody() {
+    const name = document.getElementById('msg-name')?.value?.trim() || '';
+    const email = document.getElementById('msg-email')?.value?.trim() || '';
+    const message = document.getElementById('msg-text')?.value?.trim() || '';
+    const header = name ? `From: ${name}${email ? ' <' + email + '>' : ''}\n\n` : '';
+    return `${header}${message}`;
+  }
+
+  const platformMap = {
+    email: () => `mailto:abc@gmail.com?subject=${encodeURIComponent('Hello Aman')}&body=${encodeURIComponent(buildMessageBody())}`,
+    linkedin: () => document.getElementById('ln-url')?.href || '#',
+    github: () => `https://github.com/abc145`,
+    instagram: () => document.getElementById('ig-url')?.href || '#'
+  };
+
+  sendBtn?.addEventListener('click', () => {
+    const via = selectEl?.value || 'email';
+    const url = platformMap[via] ? platformMap[via]() : platformMap.email();
+    sendBtn.classList.add('wiggle');
+    setTimeout(() => sendBtn.classList.remove('wiggle'), 400);
+    window.open(url, '_blank');
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    ['msg-name', 'msg-email', 'msg-text'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  });
+
+  selectEl?.addEventListener('change', () => {
+    selectEl.classList.add('wiggle');
+    setTimeout(() => selectEl.classList.remove('wiggle'), 250);
+  });
+</script>

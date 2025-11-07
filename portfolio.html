@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aman Thakur – Web Developer</title>
+  <meta name="description" content="Portfolio of Aman Thakur – Web Developer. Projects: Pizza Inventory, Movie Shelf, ATM Machine." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f17; --panel:#111827; --soft:#1f2937; --text:#e5e7eb; --muted:#9ca3af;
+      --brand:#22d3ee; --brand-2:#8b5cf6; --accent:#10b981; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    html{scroll-behavior:smooth}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#0e1421);color:var(--text);font-family:Inter,system-ui,Roboto,sans-serif;line-height:1.6}
+    .container{width:min(1100px,92vw);margin-inline:auto}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,15,23,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+    .logo{font-weight:800;letter-spacing:.3px}
+    .logo span{background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:500}
+    nav a.active, nav a:hover{color:var(--text)}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.12);text-decoration:none;color:var(--text);transition:.2s}
+    .btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.28);box-shadow:var(--shadow)}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none}
+
+    .hero{padding:80px 0 40px;display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+    .portrait{min-height:320px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(139,92,246,.18));border:1px dashed rgba(255,255,255,.3);display:grid;place-items:center;overflow:hidden}
+  /* placeholder text removed so uploaded image isn't obscured */
+  .portrait::before{content:"";display:none}
+
+    section{padding:70px 0}
+    .section-title{font-size:22px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+    .section-title .bar{width:34px;height:3px;border-radius:6px;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+
+    .card{background:var(--soft);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+
+    /* Skills */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-weight:600}
+    .pill i{width:8px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .project{display:flex;flex-direction:column;gap:10px;background:var(--soft);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:16px;opacity:0;transform:translateY(26px) scale(.98);transition:opacity .6s ease, transform .6s ease, box-shadow .25s ease}
+    .project.show{opacity:1;transform:none}
+    .project:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+    .thumb{position:relative;height:170px;border-radius:14px;overflow:hidden;background:#0e1421;border:1px dashed rgba(255,255,255,.2);display:grid;place-items:center}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .project h3{margin:6px 0 4px}
+    .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+    /* Education */
+    .edu{display:grid;grid-template-columns:1fr;gap:14px}
+    .edu-item{position:relative;padding-left:18px}
+    .edu-item::before{content:'';position:absolute;left:4px;top:10px;width:6px;height:6px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+
+    /* Message Drop Box */
+    .message-drop{position:relative}
+    .message-box{position:relative;padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+    .message-box .corner{position:absolute;top:12px;right:12px}
+    select, textarea, input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#0c1220;color:var(--text);outline:none}
+    select:focus, textarea:focus, input:focus{box-shadow:0 0 0 4px rgba(34,211,238,.18)}
+
+    footer{padding:24px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Reveal utility */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    @media(max-width:900px){.hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">Aman <span>Thakur</span></div>
+      <nav>
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="container hero">
+      <div>
+        <h1>Hi, I'm Aman Thakur — <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;color:transparent">Web Developer</span></h1>
+        <p>Passionate web developer with an adaptive nature and quick learning mindset. I build responsive, accessible web apps and APIs with modern stacks.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">See Projects</a>
+          <a class="btn" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="portrait"></div>
+    </section>
+
+    <section id="about" class="container">
+      <h2 class="section-title"><span class="bar"></span>About</h2>
+      <div class="card">
+        <p>I’m Aman Thakur, a web developer focused on creating reliable and user-friendly web experiences. Skilled in teamwork, leadership, and adaptability.</p>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="container">
+      <h2 class="section-title"><span class="bar"></span>Education</h2>
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:18px">
+        <!-- MCA @ LPU -->
+        <article class="edu-box" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;display:flex;flex-direction:column">
+          <div class="thumb" style="height:150px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.1));overflow:hidden;border-radius:14px 14px 0 0">
+            <!-- Place institute image/logo at /assets/lpu.jpg -->
+            <img src="assets/lpu.jpg" alt="LPU campus/logo placeholder" style="display:block;width:100%;height:100%;object-fit:cover">
+          </div>
+          <div style="padding:14px">
+            <h3 style="margin:0 0 6px">MCA — Lovely Professional University (LPU)</h3>
+            <p style="margin:0 0 10px;color:var(--muted)">Currently pursuing</p>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Punjab, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add LPU URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- BCA @ Markham College (VBU) -->
+        <article class="edu-box" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;display:flex;flex-direction:column">
+          <div class="thumb" style="height:150px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.1));overflow:hidden;border-radius:14px 14px 0 0">
+            <!-- Place institute image/logo at /assets/markham.jpg -->
+            <img src="assets/markham.jpg" alt="Markham College of Commerce (VBU) placeholder" style="display:block;width:100%;height:100%;object-fit:cover">
+          </div>
+          <div style="padding:14px">
+            <h3 style="margin:0 0 6px">BCA — Markham College of Commerce (VBU), Hazaribagh</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Jharkhand, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add college URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 12th @ Annada College -->
+        <article class="edu-box" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;display:flex;flex-direction:column">
+          <div class="thumb" style="height:150px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.1));overflow:hidden;border-radius:14px 14px 0 0">
+            <!-- Place institute image/logo at /assets/annada.jpg -->
+            <img src="assets/annada.jpg" alt="Annada College placeholder" style="display:block;width:100%;height:100%;object-fit:cover">
+          </div>
+          <div style="padding:14px">
+            <h3 style="margin:0 0 6px">12th — Annada College, Hazaribagh</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Jharkhand, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add college URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 10th @ VCS -->
+        <article class="edu-box" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;display:flex;flex-direction:column">
+          <div class="thumb" style="height:150px;border:none;background:linear-gradient(135deg,rgba(34,211,238,.1),rgba(139,92,246,.1));overflow:hidden;border-radius:14px 14px 0 0">
+            <!-- Place institute image/logo at /assets/vcs.jpg -->
+            <img src="assets/vcs.jpg" alt="Vivekananda Central School (Shree Ramakrishna Math & Mission) placeholder" style="display:block;width:100%;height:100%;object-fit:cover">
+          </div>
+          <div style="padding:14px">
+            <h3 style="margin:0 0 6px">10th — Vivekananda Central School (Shree Ramakrishna Math & Mission), Hazaribagh</h3>
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;color:var(--text)">
+              <li><strong>Location:</strong> Jharkhand, India</li>
+              <li><strong>Website:</strong> <a href="#" target="_blank" rel="noopener">Add school URL</a></li>
+              <li><strong>Contact:</strong> <a href="#">Add contact/email</a></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="container">
+      <h2 class="section-title"><span class="bar"></span>Skills</h2>
+      <div class="card">
+        <h3>Frontend</h3>
+        <div class="skills-grid">
+          <div class="pill"><i></i> HTML</div>
+          <div class="pill"><i></i> CSS</div>
+          <div class="pill"><i></i> JavaScript</div>
+          <div class="pill"><i></i> React</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:20px">
+        <h3>Backend</h3>
+        <div class="skills-grid">
+          <div class="pill"><i></i> Node.js</div>
+          <div class="pill"><i></i> MongoDB</div>
+          <div class="pill"><i></i> Oracle Database</div>
+          <div class="pill"><i></i> C#</div>
+          <div class="pill"><i></i> REST APIs</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:20px">
+        <h3>Tools</h3>
+        <div class="skills-grid">
+          <div class="pill"><i></i> Git</div>
+          <div class="pill"><i></i> GitHub</div>
+          <div class="pill"><i></i> Visual Studio Code</div>
+          <div class="pill"><i></i> Postman</div>
+          <div class="pill"><i></i> Figma</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:20px">
+        <h3>Soft Skills</h3>
+        <div class="skills-grid">
+          <div class="pill"><i></i> Problem Solving</div>
+          <div class="pill"><i></i> Teamwork</div>
+          <div class="pill"><i></i> Leadership</div>
+          <div class="pill"><i></i> Adaptability</div>
+          <div class="pill"><i></i> Time Management</div>
+          <div class="pill"><i></i> Communication</div>
+          <div class="pill"><i></i> Creativity</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container">
+      <h2 class="section-title"><span class="bar"></span>Projects</h2>
+      <div class="projects">
+        <!-- Pizza Inventory -->
+        <article class="project" aria-label="Pizza Inventory project">
+          <div class="thumb">
+            <img src="assets/pizza.jpg" alt="Pizza inventory dashboard screenshot placeholder">
+          </div>
+          <h3>Pizza Inventory</h3>
+          <p>Inventory tracking app for a pizza store with CRUD operations, stock alerts, and basic analytics. Built with React, Node.js, and MongoDB.</p>
+          <div class="links">
+            <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Source Code</a>
+          </div>
+        </article>
+
+        <!-- Movie Shelf -->
+        <article class="project" aria-label="Movie Shelf project">
+          <div class="thumb">
+            <img src="assets/movieshelf.jpg" alt="Movie app template screenshot placeholder">
+          </div>
+          <h3>Movie Shelf</h3>
+          <p>Web app to search, save, and categorize favorite movies with API integration and responsive UI. Built with React and a public movie API.</p>
+          <div class="links">
+            <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Source Code</a>
+          </div>
+        </article>
+
+        <!-- ATM Machine -->
+        <article class="project" aria-label="ATM Machine project">
+          <div class="thumb">
+            <img src="assets/atm.jpg" alt="ATM UI screen placeholder">
+          </div>
+          <h3>ATM Machine</h3>
+          <p>ATM simulation with authentication, balance checks, deposits/withdrawals, and transaction logs. Implemented in C# with a clean UI.</p>
+          <div class="links">
+            <a class="btn" href="#" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn" href="#" target="_blank" rel="noopener">Source Code</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2 class="section-title"><span class="bar"></span>Contact</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
+        <!-- Contact Details -->
+        <div class="card">
+          <h3 style="margin-top:0">Get in touch</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:grid;gap:10px">
+            <li><strong>Email:</strong> <a href="mailto:abc@gmail.com">abc@gmail.com</a></li>
+            <li><strong>LinkedIn:</strong> <a href="#" id="ln-url" target="_blank" rel="noopener">Add LinkedIn URL</a></li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/abc145" target="_blank" rel="noopener">abc145</a></li>
+            <li><strong>Instagram:</strong> <a href="#" id="ig-url" target="_blank" rel="noopener">Add Instagram URL</a></li>
+          </ul>
+        </div>
+
+        <!-- Message Drop Box (side-by-side) -->
+        <div class="message-box">
+          <div class="corner">
+            <label for="contact-via" class="sr-only">Contact via</label>
+            <select id="contact-via" aria-label="Choose where to contact">
+              <option value="email" selected>Email</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="github">GitHub</option>
+              <option value="instagram">Instagram</option>
+            </select>
+          </div>
+          <div style="display:grid;gap:12px">
+            <input id="msg-name" placeholder="Your name" aria-label="Your name">
+            <input id="msg-email" type="email" placeholder="Your email (optional)" aria-label="Your email">
+            <textarea id="msg-text" rows="5" placeholder="Type your message here..."></textarea>
+            <div style="display:flex;justify-content:flex-end;gap:10px">
+              <button class="btn" type="button" id="clear-btn">Clear</button>
+              <button class="btn primary" type="button" id="send-btn">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <small style="color:var(--muted);display:block;margin-top:8px">Note: The message box opens the selected platform with your message prefilled.</small>
+    </section>
+
+    <!-- Message Drop Section -->
+    <section id="message" class="container message-drop">
+      <h2 class="section-title"><span class="bar"></span>Drop me a Message</h2>
+      <div class="message-box">
+        <div class="corner">
+          <label for="contact-via" class="sr-only">Contact via</label>
+          <select id="contact-via" aria-label="Choose where to contact">
+            <option value="email" selected>Email</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="github">GitHub</option>
+            <option value="instagram">Instagram</option>
+          </select>
+        </div>
+        <div style="display:grid;gap:12px">
+          <input id="msg-name" placeholder="Your name" aria-label="Your name">
+          <input id="msg-email" type="email" placeholder="Your email (optional)" aria-label="Your email">
+          <textarea id="msg-text" rows="5" placeholder="Type your message here..."></textarea>
+          <div style="display:flex;justify-content:flex-end;gap:10px">
+            <button class="btn" type="button" id="clear-btn">Clear</button>
+            <button class="btn primary" type="button" id="send-btn">Send</button>
+          </div>
+        </div>
+      </div>
+      <small style="color:var(--muted);display:block;margin-top:8px">Note: This box doesn't send directly. It opens the right platform with your message prefilled.</small>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> Aman Thakur. All rights reserved.</small>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll reveal for .reveal and .project cards
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+    },{threshold:.12, rootMargin:'0px 0px -10% 0px'});
+    document.querySelectorAll('.reveal, .project').forEach(el=> io.observe(el));
+
+    // Message drop logic
+    const platformMap = {
+      email: () => `mailto:abc@gmail.com?subject=${encodeURIComponent('Hello Aman')}&body=${encodeURIComponent(buildBody())}`,
+      linkedin: () => document.getElementById('ln-url')?.href || '#',
+      github: () => `https://github.com/abc145`,
+      instagram: () => document.getElementById('ig-url')?.href || '#'
+    };
+
+    function buildBody(){
+      const name = document.getElementById('msg-name').value.trim();
+      const email = document.getElementById('msg-email').value.trim();
+      const text = document.getElementById('msg-text').value.trim();
+      return `${name ? 'From: '+name+(email? ' <'+email+'>':'')+'%0D%0A%0D%0A':''}${text}`;
+    }
+
+    document.getElementById('send-btn').addEventListener('click',()=>{
+      const via = document.getElementById('contact-via').value;
+      const linkBuilder = platformMap[via] || platformMap.email;
+      const url = linkBuilder();
+      window.open(url, '_blank');
+    });
+
+    document.getElementById('clear-btn').addEventListener('click',()=>{
+      ['msg-name','msg-email','msg-text'].forEach(id=>document.getElementById(id).value='');
+    });
+  </script>
+</body>
+</html>
